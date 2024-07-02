@@ -3,8 +3,7 @@
 
 int main(void)
 {
-	float playerShields = 100, playerHull = 100;
-	Ship_t playerShip = { StratosX,  };
+	Ship_t playerShip = { StratosX, 600, 600, 600, 600, 40 };
 	enum ShipClass waves[6][50] = {
 			{ Null },
 			{ Null },
@@ -12,7 +11,7 @@ int main(void)
 			{ Null },
 			{ Null },
 			{ CoreSec_Battleship, Null }
-	} ;
+	};
 
 
 	return (0);
