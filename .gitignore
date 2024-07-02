@@ -1,2 +1,6 @@
 /cmake-build-debug/Testing/Temporary/
 !/.cache/
+/.fleet/run.json
+/.cache/jb/UpdateWork.dat
+/.idea/vcs.xml
+/.cache/jb/version.txt
