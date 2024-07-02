@@ -24,4 +24,10 @@ typedef struct Ship {
 
 } Ship_t;
 
+
+void setWave(Ship_t destWave[50], Ship_t srcWave[50]);
+
+Ship_t *initWave(int wave);
+
+
 #endif
