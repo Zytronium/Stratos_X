@@ -1,0 +1,3 @@
+C:/Users/Owner/CLionProjects/Stratos-X/cmake-build-debug/CMakeFiles/Stratos_X.dir
+C:/Users/Owner/CLionProjects/Stratos-X/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Owner/CLionProjects/Stratos-X/cmake-build-debug/CMakeFiles/rebuild_cache.dir
