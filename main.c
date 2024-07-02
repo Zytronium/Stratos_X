@@ -58,7 +58,8 @@ Ship_t *initWave(int wave)
 			break;
 
 		case 6:
-			waveShips = { createShip(Cruiser), createShip(Cruiser), createShip(Cruiser), createShip(Destroyer), createShip(Destroyer), createShip(CoreSecBattleship), createShip(Null) };
+			Ship_t shp[] = { createShip(Cruiser), createShip(Cruiser), createShip(Cruiser), createShip(Destroyer), createShip(Destroyer), createShip(CoreSec_Battleship), createShip(Null) };
+			setWave(waveShips, shp);
 			break;
 
 		default:
@@ -69,6 +70,38 @@ Ship_t *initWave(int wave)
 	return &(waveShips[0]);
 }
 
+Ship_t createShip(enum ShipClass class)
+{
+	switch (class) {
+		case StratosX: /* Player's Ship. All other types (except Player Station and Null) are enemies */
+			return (Ship_t) { StratosX, 800, 750, 800, 750, 45 };
+
+		case Interceptor:
+			return (Ship_t) { Interceptor, 75, 125, 75, 125, 15 };
+
+		case Fighter:
+			return (Ship_t) { Fighter, 170, 50, 170, 50, 20 };
+
+		case Corvette:
+			return (Ship_t) { Corvette, 300, 350, 300, 350, 35 };
+
+		case Frigate:
+			return (Ship_t) { Frigate, 450, 400, 450, 400, 45 };
+
+		case Destroyer:
+			return (Ship_t) { Destroyer, 950, 725, 950, 725, 60 };
+
+		case Cruiser:
+			return (Ship_t) { Cruiser, 1450, 1100, 1450, 1100, 80 };
+
+		case CoreSec_Battleship:
+			return (Ship_t) { CoreSec_Battleship, 12000, 5000, 12000, 5000, 105 };
+
+		default: /* Player Station, Null, or any other type I may add in the future and forget to add a case for */
+			return (Ship_t) { Null, 0, 0, 0, 0, 0 };
+	}
+}
+
 void setWave(Ship_t destWave[50], Ship_t srcWave[50])
 {
 	int i;
@@ -76,38 +109,5 @@ void setWave(Ship_t destWave[50], Ship_t srcWave[50])
 	for (i = 0; i <= 51; ++i)
 	{
 		destWave[i] = srcWave[i];
-	}
-}
-
-Ship_t createShip(enum ShipClass class)
-{
-	switch (class) {
-		case StratosX:
-			return (Ship_t) { class, 600, 600, 600, 600, 45 };
-
-		case Interceptor:
-			return (Ship_t) { class, 75, 125, 75, 125, 15 };
-
-		case Fighter:
-			return (Ship_t) { class, 170, 50, 170, 50, 20 };
-
-		case Corvette:
-			return (Ship_t) { class, 300, 350, 300, 350, 35 };
-
-		case Frigate:
-			return (Ship_t) { class, 450, 400, 450, 400, 45 };
-
-		case Destroyer:
-			return (Ship_t) { class, 950, 725, 950, 725, 60 };
-
-		case Cruiser:
-			return (Ship_t) { class, 1450, 1100, 1450, 1100, 80 };
-
-		case CoreSec_Battleship:
-			return (Ship_t) { class, 12000, 5000, 12000, 5000, 105 };
-
-		default:
-			return (Ship_t) { class, 0, 0, 0, 0, 0 };
-			break;
 	}
 }
