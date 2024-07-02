@@ -61,6 +61,9 @@ Ship_t *initWave(int wave)
 			waveShips = { createShip(Cruiser), createShip(Cruiser), createShip(Cruiser), createShip(Destroyer), createShip(Destroyer), createShip(CoreSecBattleship), createShip(Null) };
 			break;
 
+		default:
+			break;
+
 	}
 
 	return &(waveShips[0]);
@@ -89,7 +92,22 @@ Ship_t createShip(enum ShipClass class)
 			return (Ship_t) { class, 170, 50, 170, 50, 20 };
 
 		case Corvette:
-			return (Ship_t) { class, 0, 0, 0, 0, 40 };
+			return (Ship_t) { class, 300, 350, 300, 350, 35 };
 
+		case Frigate:
+			return (Ship_t) { class, 450, 400, 450, 400, 45 };
+
+		case Destroyer:
+			return (Ship_t) { class, 950, 725, 950, 725, 60 };
+
+		case Cruiser:
+			return (Ship_t) { class, 1450, 1100, 1450, 1100, 80 };
+
+		case CoreSec_Battleship:
+			return (Ship_t) { class, 12000, 5000, 12000, 5000, 105 };
+
+		default:
+			return (Ship_t) { class, 0, 0, 0, 0, 0 };
+			break;
 	}
 }

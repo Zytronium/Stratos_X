@@ -29,5 +29,6 @@ void setWave(Ship_t destWave[50], Ship_t srcWave[50]);
 
 Ship_t *initWave(int wave);
 
+Ship_t createShip(enum ShipClass class);
 
 #endif
