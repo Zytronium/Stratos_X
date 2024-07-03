@@ -28,7 +28,7 @@ typedef struct Ship {
 
 void setWave(Ship_t destWave[50], ...);
 
-Ship_t *initWave(Ship_t waveShips[50], int wave);
+void initWave(Ship_t waveShips[50], int wave);
 
 Ship_t createShip(enum ShipClass class);
 
