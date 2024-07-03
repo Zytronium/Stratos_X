@@ -16,18 +16,19 @@ enum ShipClass {
 
 typedef struct Ship {
 	enum ShipClass class;
-	float maxHull;
-	float maxShields;
-	float hullHp;
-	float shieldsHp;
+	double maxHull;
+	double maxShields;
+	double hullHp;
+	double shieldsHp;
+	double speed;
 	int dps;
 
 } Ship_t;
 
 
-void setWave(Ship_t destWave[50], Ship_t srcWave[50]);
+void setWave(Ship_t destWave[50], ...);
 
-Ship_t *initWave(int wave);
+Ship_t *initWave(Ship_t waveShips[50], int wave);
 
 Ship_t createShip(enum ShipClass class);
 
