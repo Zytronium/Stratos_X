@@ -48,7 +48,7 @@ Ship_t createShip(enum ShipClass class)
 	}
 }
 
-Ship_t *initWave(Ship_t waveShips[50], int wave)
+void initWave(Ship_t waveShips[50], int wave)
 {
 	int i;
 
@@ -96,8 +96,6 @@ Ship_t *initWave(Ship_t waveShips[50], int wave)
 			break;
 
 	}
-
-	return &(waveShips[0]);
 }
 
 void setWave(Ship_t destWave[50], ...)
