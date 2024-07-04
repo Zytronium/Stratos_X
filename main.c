@@ -10,13 +10,10 @@ int main(void)
 {
 	Ship_t playerShip = createShip(StratosX);
 	Ship_t waves[6][50];
+	int i;
 
-	initWave(waves[0], 1);
-	initWave(waves[1], 2);
-	initWave(waves[2], 3);
-	initWave(waves[3], 4);
-	initWave(waves[4], 5);
-	initWave(waves[5], 6);
+	for (i = 0; i < 6; i++)
+		initWave(waves[i], i + 1);
 
 	return (0);
 }
