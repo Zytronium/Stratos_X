@@ -27,30 +27,31 @@ int main(void)
  */
 Ship_t createShip(enum ShipClass class)
 {
-	switch (class) {
+	switch (class)
+	{
 		case StratosX: /* Player's Ship. All other types (except Player Station and Null) are enemies */
-			return (Ship_t) { StratosX, 800, 750, 800, 750, 160, 45 };
+			return (Ship_t) {StratosX, 800, 750, 800, 750, 160, 45};
 
 		case Interceptor:
-			return (Ship_t) { Interceptor, 75, 125, 75, 125, 170, 15 };
+			return (Ship_t) {Interceptor, 75, 125, 75, 125, 170, 15};
 
 		case Fighter:
-			return (Ship_t) { Fighter, 170, 50, 170, 50, 135, 20 };
+			return (Ship_t) {Fighter, 170, 50, 170, 50, 135, 20};
 
 		case Corvette:
-			return (Ship_t) { Corvette, 300, 350, 300, 350, 115, 35 };
+			return (Ship_t) {Corvette, 300, 350, 300, 350, 115, 35};
 
 		case Frigate:
-			return (Ship_t) { Frigate, 450, 400, 450, 400, 90, 45 };
+			return (Ship_t) {Frigate, 450, 400, 450, 400, 90, 45};
 
 		case Destroyer:
-			return (Ship_t) { Destroyer, 950, 725, 950, 725, 80, 60 };
+			return (Ship_t) {Destroyer, 950, 725, 950, 725, 80, 60};
 
 		case Cruiser:
-			return (Ship_t) { Cruiser, 1450, 1100, 1450, 1100, 45, 80 };
+			return (Ship_t) {Cruiser, 1450, 1100, 1450, 1100, 45, 80};
 
 		case CoreSec_Battleship:
-			return (Ship_t) { CoreSec_Battleship, 12000, 5000, 12000, 5000, 10, 110 };
+			return (Ship_t) {CoreSec_Battleship, 12000, 5000, 12000, 5000, 10, 110};
 
 		default: /* Player Station, Null, or any other type I may add in the future and forget to add a case for */
 			return NULL_SHIP;
@@ -68,49 +69,52 @@ void initWave(Ship_t waveShips[50], int wave)
 {
 	int i;
 
-	switch (wave) {
+	switch (wave)
+	{
 		case 1:
 			for (i = 0; i < 8; i++)
 			{
-//				TODO: init waveShips for wave 1.
+				// TODO: init waveShips for wave 1.
 			}
 			break;
 
 		case 2:
 			for (i = 0; i < 16; i++)
 			{
-//				TODO: init waveShips for wave 2
+				// TODO: init waveShips for wave 2
 			}
 			break;
 
 		case 3:
 			for (i = 0; i < 34; i++)
 			{
-//				TODO: init waveShips for wave 3
+				// TODO: init waveShips for wave 3
 			}
 			break;
 
 		case 4:
 			for (i = 0; i < 42; i++)
 			{
-//				TODO: init waveShips for wave 4
+				// TODO: init waveShips for wave 4
 			}
 			break;
 
 		case 5:
 			for (i = 0; i < 27; i++)
 			{
-//				TODO: init waveShips for wave 5
+				// TODO: init waveShips for wave 5
 			}
 			break;
 
 		case 6:
-			setWave(waveShips, createShip(Cruiser), createShip(Cruiser), createShip(Cruiser), createShip(Destroyer), createShip(Destroyer), createShip(CoreSec_Battleship), NULL_SHIP);
+			setWave(waveShips, createShip(Cruiser), createShip(Cruiser),
+					createShip(Cruiser), createShip(Destroyer),
+					createShip(Destroyer), createShip(CoreSec_Battleship),
+					NULL_SHIP);
 			break;
 
 		default:
 			break;
-
 	}
 }
 
@@ -123,19 +127,22 @@ void initWave(Ship_t waveShips[50], int wave)
 void setWave(Ship_t destWave[50], ...)
 {
 	va_list ships;
-	int i = 0;
 	Ship_t ship;
+	int i = 0;
 
 	va_start(ships, destWave);
+
 	while (i < 50)
 	{
 		ship = va_arg(ships, Ship_t);
+
 		if (ship.class == Null)
 			break;
 
 		destWave[i] = ship;
 		i++;
 	}
+
 	va_end(ships);
 
 	// Set the remaining elements of the array to NULL
