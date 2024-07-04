@@ -1,6 +1,6 @@
 #include "stratos.h"
 #include <stdarg.h>
-
+#include <windows.h>
 /**
  * Entry point.
  *
@@ -150,5 +150,55 @@ void setWave(Ship_t destWave[50], ...)
 	{
 		destWave[i] = NULL_SHIP;
 		i++;
+	}
+}
+
+/**
+ * Plays a sound effect using the windows Beep() function
+ * currently Sound effects in enum Sound are placeholders.
+ * This can either play a single beep, or a series of beeps,
+ * like a song or an alarm.
+ *
+ * @param effect Which effect to play.
+ */
+void soundEffect(enum Sound effect)
+{
+	switch (effect)
+	{
+		case Beep1:
+			// TODO
+			break;
+
+		case Beep2:
+			// TODO
+			break;
+
+		case Beep3:
+			// TODO
+			break;
+
+		case Beep4:
+			// TODO
+			break;
+
+		case Beep5:
+			// TODO
+			break;
+
+		case Beep6:
+			// TODO
+			break;
+
+		case Beep7:
+			// TODO
+			break;
+
+		case Beep8:
+			// TODO
+			break;
+
+		default:
+			// TODO
+			break;
 	}
 }
