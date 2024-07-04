@@ -2,6 +2,8 @@
 #define STRATOS_H
 
 enum ShipClass {
+
+	Null,
 	StratosX,
 	Interceptor,
 	Fighter,
@@ -10,8 +12,7 @@ enum ShipClass {
 	Destroyer,
 	Cruiser,
 	PlayerStation,
-	CoreSec_Battleship,
-	Null
+	CoreSec_Battleship
 };
 
 typedef struct Ship {
@@ -31,5 +32,11 @@ void setWave(Ship_t destWave[50], ...);
 void initWave(Ship_t waveShips[50], int wave);
 
 Ship_t createShip(enum ShipClass class);
+
+#endif
+
+
+#ifndef NULL_SHIP
+#define NULL_SHIP (Ship_t) { Null, 0, 0, 0, 0, 0, 0 }
 
 #endif

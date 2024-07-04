@@ -44,7 +44,7 @@ Ship_t createShip(enum ShipClass class)
 			return (Ship_t) { CoreSec_Battleship, 12000, 5000, 12000, 5000, 10, 110 };
 
 		default: /* Player Station, Null, or any other type I may add in the future and forget to add a case for */
-			return (Ship_t) { Null, 0, 0, 0, 0, 0, 0 };
+			return NULL_SHIP;
 	}
 }
 
@@ -89,7 +89,7 @@ void initWave(Ship_t waveShips[50], int wave)
 			break;
 
 		case 6:
-			setWave(waveShips, createShip(Cruiser), createShip(Cruiser), createShip(Cruiser), createShip(Destroyer), createShip(Destroyer), createShip(CoreSec_Battleship), createShip(Null));
+			setWave(waveShips, createShip(Cruiser), createShip(Cruiser), createShip(Cruiser), createShip(Destroyer), createShip(Destroyer), createShip(CoreSec_Battleship), NULL_SHIP);
 			break;
 
 		default:
@@ -101,12 +101,19 @@ void initWave(Ship_t waveShips[50], int wave)
 void setWave(Ship_t destWave[50], ...)
 {
 	va_list ships;
-	int i;
+	int i = 0;
+	Ship_t ship;
 
 	va_start(ships, destWave);
-	for (i = 0; i <= 51; ++i)
+	while (i < 50)
 	{
-		destWave[i] = va_arg(ships, Ship_t);
+		ship = va_arg(ships, Ship_t);
+		if (ship.class == Null)
+			destWave[i] = NULL_SHIP;
+		else
+			destWave[i] = ship;
+
+		i++;
 	}
 	va_end(ships);
 }
