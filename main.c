@@ -1,6 +1,11 @@
 #include "stratos.h"
 #include <stdarg.h>
 
+/**
+ * Entry point.
+ *
+ * @return zero: success.
+ */
 int main(void)
 {
 	Ship_t playerShip = createShip(StratosX);
@@ -16,6 +21,13 @@ int main(void)
 	return (0);
 }
 
+/**
+ * Creates a ship with the default starting properties for the given class.
+ *
+ * @param class The class of ship to create. This determines the default stats.
+ *
+ * @return The newly created ship.
+ */
 Ship_t createShip(enum ShipClass class)
 {
 	switch (class) {
@@ -48,6 +60,13 @@ Ship_t createShip(enum ShipClass class)
 	}
 }
 
+/**
+ * Initializes (NOT initiates) a wave. Creates all the ships that will be
+ * in this wave. Slightly randomizes each wave except the final boss.
+ *
+ * @param waveShips The array of ships to initialize.
+ * @param wave The wave number. 6 is the final boss.
+ */
 void initWave(Ship_t waveShips[50], int wave)
 {
 	int i;
@@ -98,6 +117,12 @@ void initWave(Ship_t waveShips[50], int wave)
 	}
 }
 
+/**
+ * Initializes or overwrites an array, assumed to be a wave, of ships.
+ *
+ * @param destWave The array of ships that we are setting.
+ * @param ... Ships that belong in destWave.
+ */
 void setWave(Ship_t destWave[50], ...)
 {
 	va_list ships;
@@ -109,11 +134,17 @@ void setWave(Ship_t destWave[50], ...)
 	{
 		ship = va_arg(ships, Ship_t);
 		if (ship.class == Null)
-			destWave[i] = NULL_SHIP;
-		else
-			destWave[i] = ship;
+			break;
 
+		destWave[i] = ship;
 		i++;
 	}
 	va_end(ships);
+
+	// Set the remaining elements of the array to NULL
+	while (i < 50)
+	{
+		destWave[i] = NULL_SHIP;
+		i++;
+	}
 }
