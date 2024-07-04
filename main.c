@@ -132,6 +132,13 @@ void initWave(Ship_t waveShips[50], int wave)
 	}
 }
 
+/**
+ * Converts the name of a ship's class to a string.
+ *
+ * @param class The ship class convert to a string.
+ *
+ * @return The name of a ship's class as a string.
+ */
 char *classToStr(enum ShipClass class)
 {
 	switch (class)
@@ -164,10 +171,15 @@ char *classToStr(enum ShipClass class)
 			return ("Player Station");
 
 		default:
-			return (NULL);
+			return ("NULL");
 	}
 }
 
+/**
+ * Prints the properties of a ship.
+ *
+ * @param ship The ship to print the properties of.
+ */
 void printShip(Ship_t ship)
 {
 	int i;
