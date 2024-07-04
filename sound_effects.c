@@ -75,3 +75,36 @@ void soundEffect(enum Sound effect, int *isPlayingPtr)
 			break;
 	}
 }
+
+/**
+ * Creates a thread and plays a sound effect on that thread, allowing any code
+ * following a call to this function to run at the same time without waiting
+ * for the sound effect to end.
+ *
+ * @param alarmEffect void pointer to a sound_effect_t that contains 2 properties:\n\n\n
+ * alarmEffect.effect: The sound effect to play.\n\n
+ * alarmEffect.isPlayingPtr: A pointer to an int value that lets the sound
+ * effect know when to stop playing. Use NULL if you know this wont be used.
+ *
+ * @example @code
+ * int alarm1playing = 1;
+ * sound_effect_t alarm = {Alarm1, &alarm1playing};
+ * pthread_t thread;
+ *
+ * pthread_create(&thread, NULL, soundThread, &alarm);
+ *
+ * // Do something while alarm plays
+ *
+ * pthread_join(thread, NULL);
+ * @endcode
+ *
+ * @return NULL
+ */
+void *soundThread(void *alarmEffect)
+{
+	sound_effect_t alarm = *(sound_effect_t *) alarmEffect;
+
+	soundEffect(alarm.effect, alarm.isPlayingPtr);
+
+	return (NULL);
+}

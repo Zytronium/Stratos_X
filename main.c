@@ -3,28 +3,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <windows.h>
 #include <pthread.h>
-
-/**
- * Creates a thread and plays a sound effect on that thread, allowing any code
- * following a call to this function to run at the same time without waiting
- * for the sound effect to end.
- *
- * @param effect Sound effect to play.
- * @param isPlayingPtr Void pointer to an int value that lets the sound effect
- * know when to stop playing. (type cast (int *) to (void *) for this,
- * or simply supply NULL if this value wont be used.
- * @return
- */
-void *soundThread(void *alarmEffect)
-{
-	sound_effect_t alarm = *(sound_effect_t *) alarmEffect;
-
-	soundEffect(alarm.effect, alarm.isPlayingPtr);
-
-	return (NULL);
-}
 
 /**
  * Entry point.
@@ -41,11 +20,12 @@ int main(void)
 
 	pthread_create(&thread, NULL, soundThread, &alarm);
 
-	sleep(2);
-	alarm1playing = 0;
-
 	for (i = 0; i < 6; i++)
 		initWave(waves[i], i + 1);
+
+	sleep(3);
+	alarm1playing = 0;
+
 
 	pthread_join(thread, NULL);
 
@@ -152,6 +132,77 @@ void initWave(Ship_t waveShips[50], int wave)
 	}
 }
 
+char *classToStr(enum ShipClass class)
+{
+	switch (class)
+	{
+		case Interceptor:
+			return ("Interceptor");
+
+		case Fighter:
+			return ("Fighter");
+
+		case Corvette:
+			return ("Corvette");
+
+		case Frigate:
+			return ("Frigate");
+
+		case Destroyer:
+			return ("Destroyer");
+
+		case Cruiser:
+			return ("Cruiser");
+
+		case CoreSec_Battleship:
+			return ("CoreSec Battleship");
+
+		case StratosX:
+			return ("Stratos-X");
+
+		case PlayerStation:
+			return ("Player Station");
+
+		default:
+			return (NULL);
+	}
+}
+
+void printShip(Ship_t ship)
+{
+	int i;
+
+	for (i = 0; i < 6; i++)
+	{
+		switch (i)
+		{
+			case 0:
+				printf("Class: %s\n", classToStr(ship.class));
+				break;
+
+			case 1:
+				printf("Hull HP: %.1f/%.1f max\n", ship.hullHp, ship.maxHull);
+				break;
+
+			case 2:
+				printf("Shields HP: %.1f/%.1f max\n", ship.shieldsHp, ship.maxShields);
+				break;
+
+			case 3:
+				printf("Max Speed: %.0f\n", ship.speed);
+				break;
+
+			case 4:
+				printf("DPS: %d\n", ship.dps);
+				break;
+
+			default:
+				putchar('\n');
+				break;
+		}
+	}
+}
+
 /**
  * Initializes or overwrites an array, assumed to be a wave, of ships.
  *
@@ -173,7 +224,9 @@ void setWave(Ship_t destWave[50], ...)
 		if (ship.class == Null)
 			break;
 
+		printShip(ship);
 		destWave[i] = ship;
+
 		i++;
 	}
 

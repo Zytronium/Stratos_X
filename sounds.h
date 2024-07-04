@@ -19,4 +19,6 @@ typedef struct Sound_Effect {
 
 void soundEffect(enum Sound effect, int *isPlayingPtr);
 
+void *soundThread(void *alarmEffect);
+
 #endif

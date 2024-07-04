@@ -1,8 +1,8 @@
 [
 {
-  "directory": "C:/Users/daste/CLionProjects/Stratos_X/cmake-build-debug",
-  "command": "C:\\Users\\daste\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe   -g -std=gnu99 -fdiagnostics-color=always -o CMakeFiles\\Stratos_X.dir\\main.c.obj -c C:\\Users\\daste\\CLionProjects\\Stratos_X\\main.c",
-  "file": "C:/Users/daste/CLionProjects/Stratos_X/main.c",
-  "output": "CMakeFiles/Stratos_X.dir/main.c.obj"
+  "directory": "C:/Users/Owner/CLionProjects/Stratos-X/cmake-build-debug",
+  "command": "C:\\Users\\Owner\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe -g -std=gnu99 -fdiagnostics-color=always -o CMakeFiles\\Stratos_X.dir\\main.c.obj -c C:\\Users\\Owner\\CLionProjects\\Stratos-X\\main.c",
+  "file": "C:\\Users\\Owner\\CLionProjects\\Stratos-X\\main.c",
+  "output": "CMakeFiles\\Stratos_X.dir\\main.c.obj"
 }
 ]

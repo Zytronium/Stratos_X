@@ -32,6 +32,10 @@ void initWave(Ship_t waveShips[50], int wave);
 
 Ship_t createShip(enum ShipClass class);
 
+char *classToStr(enum ShipClass class);
+
+void printShip(Ship_t ship);
+
 #endif
 
 
