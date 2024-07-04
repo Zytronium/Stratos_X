@@ -1,19 +1,7 @@
 #ifndef STRATOS_H
 #define STRATOS_H
 
-enum Sound {
-	Beep1,
-	Beep2,
-	Beep3,
-	Beep4,
-	Beep5,
-	Beep6,
-	Beep7,
-	Beep8
-};
-
 enum ShipClass {
-
 	Null,
 	StratosX,
 	Interceptor,

@@ -1,19 +1,53 @@
 #include "stratos.h"
+#include "sounds.h"
 #include <stdarg.h>
+#include <stdio.h>
+#include <unistd.h>
 #include <windows.h>
+#include <pthread.h>
+
+/**
+ * Creates a thread and plays a sound effect on that thread, allowing any code
+ * following a call to this function to run at the same time without waiting
+ * for the sound effect to end.
+ *
+ * @param effect Sound effect to play.
+ * @param isPlayingPtr Void pointer to an int value that lets the sound effect
+ * know when to stop playing. (type cast (int *) to (void *) for this,
+ * or simply supply NULL if this value wont be used.
+ * @return
+ */
+void *soundThread(void *alarmEffect)
+{
+	sound_effect_t alarm = *(sound_effect_t *) alarmEffect;
+
+	soundEffect(alarm.effect, alarm.isPlayingPtr);
+
+	return (NULL);
+}
+
 /**
  * Entry point.
  *
- * @return zero: success.
+ * @return 0: success.
  */
 int main(void)
 {
 	Ship_t playerShip = createShip(StratosX);
 	Ship_t waves[6][50];
-	int i;
+	int i, alarm1playing = 1;
+	sound_effect_t alarm = {Alarm3, &alarm1playing};
+	pthread_t thread;
+
+	pthread_create(&thread, NULL, soundThread, &alarm);
+
+	sleep(2);
+	alarm1playing = 0;
 
 	for (i = 0; i < 6; i++)
 		initWave(waves[i], i + 1);
+
+	pthread_join(thread, NULL);
 
 	return (0);
 }
@@ -150,55 +184,5 @@ void setWave(Ship_t destWave[50], ...)
 	{
 		destWave[i] = NULL_SHIP;
 		i++;
-	}
-}
-
-/**
- * Plays a sound effect using the windows Beep() function
- * currently Sound effects in enum Sound are placeholders.
- * This can either play a single beep, or a series of beeps,
- * like a song or an alarm.
- *
- * @param effect Which effect to play.
- */
-void soundEffect(enum Sound effect)
-{
-	switch (effect)
-	{
-		case Beep1:
-			// TODO
-			break;
-
-		case Beep2:
-			// TODO
-			break;
-
-		case Beep3:
-			// TODO
-			break;
-
-		case Beep4:
-			// TODO
-			break;
-
-		case Beep5:
-			// TODO
-			break;
-
-		case Beep6:
-			// TODO
-			break;
-
-		case Beep7:
-			// TODO
-			break;
-
-		case Beep8:
-			// TODO
-			break;
-
-		default:
-			// TODO
-			break;
 	}
 }
