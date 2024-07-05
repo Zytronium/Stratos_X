@@ -20,16 +20,61 @@ int main(void)
 
 	pthread_create(&thread, NULL, soundThread, &alarm);
 
-	for (i = 0; i < 6; i++)
-		initWave(waves[i], i + 1);
-
+//	updateDisplay(64, 48);
 	sleep(3);
 	alarm1playing = 0;
+
+	for (i = 0; i < 6; i++)
+		initWave(waves[i], i + 1);
 
 
 	pthread_join(thread, NULL);
 
+	sleep(4);
+
 	return (0);
+}
+
+void updateDisplay(int width, int height)
+{
+	int i, j, printedW = 0, printedH = 0;
+	char cornerBL = 200, cornerTL = 201, edgeTB = 205, cornerTR = 187, edgeLR = 186, cornerBR = 188;
+
+	putchar(cornerTL);
+	printedW++;
+	for (i = 1; i < width - 1; i++)
+	{
+		putchar(edgeTB);
+		printedW++;
+	}
+	putchar(cornerTR);
+	printedW++;
+	putchar('\n');
+	printedH++;
+	for (i = 1; i < (height - 1) / 2 - 1; i++)
+	{
+		putchar(edgeLR);
+		for (j = 1; j < width - 1; j++)
+		{
+			putchar(' ');
+		}
+		putchar(edgeLR);
+		printedH++;
+		putchar('\n');
+	}
+	putchar(cornerBL);
+	printedH++;
+	for (i = 1; i < width - 1; i++)
+	{
+		putchar(edgeTB);
+	}
+	putchar(cornerBR);
+	putchar('\n');
+
+	printf("width: %d; height: %d.\n", printedW, printedH);
+	usleep(120000);
+	system("cls");
+	updateDisplay(width, height);
 }
 
 /**

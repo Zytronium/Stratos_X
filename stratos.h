@@ -25,6 +25,7 @@ typedef struct Ship {
 
 } Ship_t;
 
+void updateDisplay(int width, int height);
 
 void setWave(Ship_t destWave[50], ...);
 

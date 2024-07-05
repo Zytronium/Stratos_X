@@ -41,10 +41,13 @@ void soundEffect(enum Sound effect, int *isPlayingPtr)
 			while (1)
 			{
 				if (*isPlayingPtr)
+				{
 					Beep(550, 250);
+					usleep(250);
+				}
 				else
 				{
-					Beep(550, 2500);
+					Beep(550, 2000);
 					break;
 				}
 			}
