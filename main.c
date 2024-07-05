@@ -39,7 +39,7 @@ void updateDisplay(int width, int height)
 {
 	int i, j, printedW = 0, printedH = 0, printed = 0;
 	char cornerBL = 200, cornerTL = 201, edgeTB = 205, cornerTR = 187, edgeLR = 186, cornerBR = 188;
-	char display[2000];
+	char display[((width + 1) * ((height / 2) - 1 ))];
 
 	display[printed] = cornerTL;
 	printedW++;
@@ -86,7 +86,7 @@ void updateDisplay(int width, int height)
 	display[printed] = '\0';
 
 	printf("%s", display);
-	printf("width: %d; height: %d; printed chars: %d.\n", printedW, printedH, printed);
+	printf("width: %d; height: %d; printed chars: %d; display size: %d.\n", printedW, printedH, printed, ((width - 1) * ((height - 1) / 2 - 1 )));
 	usleep(120000);
 	system("cls");
 	updateDisplay(width, height);
