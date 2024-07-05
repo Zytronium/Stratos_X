@@ -20,7 +20,7 @@ int main(void)
 
 	pthread_create(&thread, NULL, soundThread, &alarm);
 
-//	updateDisplay(64, 48);
+	updateDisplay(64, 48); /* TODO: This needs to be on its own thread */
 	sleep(3);
 	alarm1playing = 0;
 
@@ -37,41 +37,56 @@ int main(void)
 
 void updateDisplay(int width, int height)
 {
-	int i, j, printedW = 0, printedH = 0;
+	int i, j, printedW = 0, printedH = 0, printed = 0;
 	char cornerBL = 200, cornerTL = 201, edgeTB = 205, cornerTR = 187, edgeLR = 186, cornerBR = 188;
+	char display[2000];
 
-	putchar(cornerTL);
+	display[printed] = cornerTL;
 	printedW++;
+	printed++;
 	for (i = 1; i < width - 1; i++)
 	{
-		putchar(edgeTB);
+		display[printed] = edgeTB;
 		printedW++;
+		printed++;
 	}
-	putchar(cornerTR);
+	display[printed] = cornerTR;
 	printedW++;
-	putchar('\n');
+	printed++;
+	display[printed] = '\n';
+	printed++;
 	printedH++;
 	for (i = 1; i < (height - 1) / 2 - 1; i++)
 	{
-		putchar(edgeLR);
+		display[printed] = edgeLR;
+		printed++;
 		for (j = 1; j < width - 1; j++)
 		{
-			putchar(' ');
+			display[printed] = ' ';
+			printed++;
 		}
-		putchar(edgeLR);
+		display[printed] = edgeLR;
+		printed++;
 		printedH++;
-		putchar('\n');
+		display[printed] = '\n';
+		printed++;
 	}
-	putchar(cornerBL);
+	display[printed] = cornerBL;
 	printedH++;
+	printed++;
 	for (i = 1; i < width - 1; i++)
 	{
-		putchar(edgeTB);
+		display[printed] = edgeTB;
+		printed++;
 	}
-	putchar(cornerBR);
-	putchar('\n');
+	display[printed] = cornerBR;
+	printed++;
+	display[printed] = '\n';
+	printed++;
+	display[printed] = '\0';
 
-	printf("width: %d; height: %d.\n", printedW, printedH);
+	printf("%s", display);
+	printf("width: %d; height: %d; printed chars: %d.\n", printedW, printedH, printed);
 	usleep(120000);
 	system("cls");
 	updateDisplay(width, height);
