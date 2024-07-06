@@ -36,6 +36,13 @@ int main(void)
 	return (0);
 }
 
+/**
+ * prints the display screen with a neat frame around it. This is recursive,
+ * so it should only be called once.
+ *
+ * @param width what do you think
+ * @param height  w\n h\n a\n t\n  \n d\n o\n  \n y\n o\n u\n  \n t\n h\n i\n n\n k
+ */
 void updateDisplay(int width, int height)
 {
 	int i, j, printedW = 0, printedH = 0, printed = 0;
