@@ -4,4 +4,5 @@ project(Stratos_X C)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(Stratos_X main.c sound_effects.c)
+add_executable(Stratos_X main.c sound_effects.c
+        sleep.c)

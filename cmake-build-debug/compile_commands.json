@@ -10,5 +10,11 @@
   "command": "C:\\Users\\Owner\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe -g -std=gnu99 -fdiagnostics-color=always -o CMakeFiles\\Stratos_X.dir\\sound_effects.c.obj -c C:\\Users\\Owner\\CLionProjects\\Stratos-X\\sound_effects.c",
   "file": "C:\\Users\\Owner\\CLionProjects\\Stratos-X\\sound_effects.c",
   "output": "CMakeFiles\\Stratos_X.dir\\sound_effects.c.obj"
+},
+{
+  "directory": "C:/Users/Owner/CLionProjects/Stratos-X/cmake-build-debug",
+  "command": "C:\\Users\\Owner\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe -g -std=gnu99 -fdiagnostics-color=always -o CMakeFiles\\Stratos_X.dir\\sleep.c.obj -c C:\\Users\\Owner\\CLionProjects\\Stratos-X\\sleep.c",
+  "file": "C:\\Users\\Owner\\CLionProjects\\Stratos-X\\sleep.c",
+  "output": "CMakeFiles\\Stratos_X.dir\\sleep.c.obj"
 }
 ]

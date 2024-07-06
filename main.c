@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
+#include "sleep.h"
 
 /**
  * Entry point.
@@ -19,10 +20,10 @@ int main(void)
 	pthread_t thread;
 
 	pthread_create(&thread, NULL, soundThread, &alarm);
-
-	updateDisplay(64, 48); /* TODO: This needs to be on its own thread */
-	sleep(3);
+	sleep(1);
 	alarm1playing = 0;
+	updateDisplay(32, 24); /* TODO: This needs to be on its own thread */
+
 
 	for (i = 0; i < 6; i++)
 		initWave(waves[i], i + 1);
@@ -39,31 +40,29 @@ void updateDisplay(int width, int height)
 {
 	int i, j, printedW = 0, printedH = 0, printed = 0;
 	char cornerBL = 200, cornerTL = 201, edgeTB = 205, cornerTR = 187, edgeLR = 186, cornerBR = 188;
-	char display[((width + 1) * ((height / 2) - 1 ))];
+	char display[(((width * 2) + 2) * 2) + (height * 2) + ((width * 2) * height) + height + 3];
 
 	display[printed] = cornerTL;
-	printedW++;
 	printed++;
-	for (i = 1; i < width - 1; i++)
+	for (i = 0; i < width * 2; i++)
 	{
 		display[printed] = edgeTB;
-		printedW++;
 		printed++;
 	}
 	display[printed] = cornerTR;
-	printedW++;
 	printed++;
 	display[printed] = '\n';
 	printed++;
-	printedH++;
-	for (i = 1; i < (height - 1) / 2 - 1; i++)
+	for (i = 0; i < height; i++)
 	{
 		display[printed] = edgeLR;
 		printed++;
-		for (j = 1; j < width - 1; j++)
+		for (j = 0; j < width * 2; j++)
 		{
 			display[printed] = ' ';
 			printed++;
+			if (!i)
+				printedW++;
 		}
 		display[printed] = edgeLR;
 		printed++;
@@ -72,9 +71,8 @@ void updateDisplay(int width, int height)
 		printed++;
 	}
 	display[printed] = cornerBL;
-	printedH++;
 	printed++;
-	for (i = 1; i < width - 1; i++)
+	for (i = 0; i < width * 2; i++)
 	{
 		display[printed] = edgeTB;
 		printed++;
@@ -86,8 +84,10 @@ void updateDisplay(int width, int height)
 	display[printed] = '\0';
 
 	printf("%s", display);
-	printf("width: %d; height: %d; printed chars: %d; display size: %d.\n", printedW, printedH, printed, ((width - 1) * ((height - 1) / 2 - 1 )));
-	usleep(120000);
+	printf("width: %d chars; height: %d chars; display pixels: %d; "
+		   "display size (including frame and newlines): %llu.\n",
+		   printedW, printedH, printed - height - 2, sizeof(display) - 1);
+	customSleep(500, Millisec);
 	system("cls");
 	updateDisplay(width, height);
 }
