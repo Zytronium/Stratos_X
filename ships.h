@@ -40,9 +40,9 @@ typedef struct Wave_s
 	struct Wave_s *next; /* pointer to next node in list */
 } Wave_t;
 
-void setWave(Wave_t destWave, ...);
+void setWave(Wave_t *destWave, ...);
 
-void initWave(Wave_t waveShips, int wave);
+void initWave(Wave_t *waveShips, int wave);
 
 Wave_t *add_node(Wave_t **head, Ship_t ship);
 
@@ -54,7 +54,7 @@ char *classToStr(enum ShipClass class);
 
 void printShip(Ship_t ship);
 
-void printWave(Wave_t *wave);
+Wave_t *printWave(Wave_t *wave);
 
 #endif /* SHIPS_H */
 
@@ -70,10 +70,3 @@ void printWave(Wave_t *wave);
  * init as a null and don't want to init as an actual ship type
  */
 #endif /* PLACEHOLDER_SHIP */
-
-#ifndef TODO
-#define TODO fprintf(stderr, "WIP code reached.\n") && 0
-
-#include <stdio.h>
-
-#endif /* TODO */

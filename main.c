@@ -23,12 +23,19 @@ int main(void)
 	alarm1playing = 0;
 	// updateDisplay(32, 24); /* TODO: This needs to be on its own thread */
 
-	for (i = 0; i < 6; i++)
-		initWave(waves[i], i + 1);
+	/*printShip(waves[5].ship);*/
 
+	for (i = 0; i < 6; i++)
+		initWave(&waves[i], i + 1);
+
+	printf("first ship:\n");
+	printShip(waves[5].ship);
+	printf("-------------------------------\n");
+	printf("all ships, again:\n");
 	printWave(&waves[5]);
 
 	pthread_join(thread, NULL);
+
 
 	sleep(4);
 
