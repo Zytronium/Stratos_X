@@ -21,4 +21,4 @@ void soundEffect(enum Sound effect, int *isPlayingPtr);
 
 void *soundThread(void *alarmEffect);
 
-#endif
+#endif /* SOUNDS_H */

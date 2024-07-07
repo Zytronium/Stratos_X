@@ -67,6 +67,12 @@ build CMakeFiles/Stratos_X.dir/sleep.c.obj: C_COMPILER__Stratos_X_unscanned_Debu
   OBJECT_DIR = CMakeFiles\Stratos_X.dir
   OBJECT_FILE_DIR = CMakeFiles\Stratos_X.dir
 
+build CMakeFiles/Stratos_X.dir/ships.c.obj: C_COMPILER__Stratos_X_unscanned_Debug C$:/Users/Owner/CLionProjects/Stratos-X/ships.c || cmake_object_order_depends_target_Stratos_X
+  DEP_FILE = CMakeFiles\Stratos_X.dir\ships.c.obj.d
+  FLAGS = -g -std=gnu99 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Stratos_X.dir
+  OBJECT_FILE_DIR = CMakeFiles\Stratos_X.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Stratos_X
@@ -75,7 +81,7 @@ build CMakeFiles/Stratos_X.dir/sleep.c.obj: C_COMPILER__Stratos_X_unscanned_Debu
 #############################################
 # Link the executable Stratos_X.exe
 
-build Stratos_X.exe: C_EXECUTABLE_LINKER__Stratos_X_Debug CMakeFiles/Stratos_X.dir/main.c.obj CMakeFiles/Stratos_X.dir/sound_effects.c.obj CMakeFiles/Stratos_X.dir/sleep.c.obj
+build Stratos_X.exe: C_EXECUTABLE_LINKER__Stratos_X_Debug CMakeFiles/Stratos_X.dir/main.c.obj CMakeFiles/Stratos_X.dir/sound_effects.c.obj CMakeFiles/Stratos_X.dir/sleep.c.obj CMakeFiles/Stratos_X.dir/ships.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Stratos_X.dir

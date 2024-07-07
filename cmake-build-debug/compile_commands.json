@@ -16,5 +16,11 @@
   "command": "C:\\Users\\Owner\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe -g -std=gnu99 -fdiagnostics-color=always -o CMakeFiles\\Stratos_X.dir\\sleep.c.obj -c C:\\Users\\Owner\\CLionProjects\\Stratos-X\\sleep.c",
   "file": "C:\\Users\\Owner\\CLionProjects\\Stratos-X\\sleep.c",
   "output": "CMakeFiles\\Stratos_X.dir\\sleep.c.obj"
+},
+{
+  "directory": "C:/Users/Owner/CLionProjects/Stratos-X/cmake-build-debug",
+  "command": "C:\\Users\\Owner\\AppData\\Local\\Programs\\CLion\\bin\\mingw\\bin\\gcc.exe -g -std=gnu99 -fdiagnostics-color=always -o CMakeFiles\\Stratos_X.dir\\ships.c.obj -c C:\\Users\\Owner\\CLionProjects\\Stratos-X\\ships.c",
+  "file": "C:\\Users\\Owner\\CLionProjects\\Stratos-X\\ships.c",
+  "output": "CMakeFiles\\Stratos_X.dir\\ships.c.obj"
 }
 ]
