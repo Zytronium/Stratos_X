@@ -164,6 +164,7 @@ char *classToStr(enum ShipClass class)
 void setWave(Wave_t destWave, ...)
 {
 	Wave_t *tempNode; /* new node to create */
+	Wave_t *head = &destWave; /* first node of wave list */
 	va_list ships; /* all args after destWave, assumed to be of type Ship_t */
 	Ship_t ship = PLACEHOLDER_SHIP; /* Note:
  * Initialized here so that it can start the loop.
@@ -177,6 +178,13 @@ void setWave(Wave_t destWave, ...)
 
 	while (ship.class != Null) /* iterates through all ships given */
 	{
+		/*
+		 * NOTE: The issue with this is that it reallocates tempNode each time,
+		 * so it's really just replacing the last ship with this one on each
+		 * iteration. The solution, which I will implement after this commit,
+		 * should be to simply do this recursively.
+		 * Good thing I never deleted add_node() earlier.
+		 */
 		ship = va_arg(ships, Ship_t); /* sets ship to next ship in ships list*/
 		tempNode = malloc(sizeof(Wave_t)); /* allocates memory for new node */
 
@@ -188,10 +196,10 @@ void setWave(Wave_t destWave, ...)
 		tempNode->ship = ship; /* sets new node ship to this ship */
 		tempNode->next = NULL; /* initializes next node ptr to NULL (it doesn't exist yet) */
 
-		if (destWave.ship.class != Null) /* if the wave list's first ship is not NULL_SHIP, ... */
+		if (head[0].ship.class != Null) /* if the wave list's first ship is not NULL_SHIP, ... */
 			tail_node(&destWave)->next = tempNode; /* find and set tail node to the newly created node */
 		else /* or, if it is NULL_SHIP (meaning the list is empty), ... */
-			destWave = *tempNode; /* set the head node to newly created node. */ /* TODO: should tempNode be freed after this? */
+			head[0] = *tempNode; /* set the head node to newly created node. */ /* TODO: should tempNode be freed after this? */
 	}
 
 	va_end(ships);
@@ -288,13 +296,16 @@ void printShip(Ship_t ship)
  *
  * @param wave The wave to print the properties of.
  */
-void printWave(Wave_t wave)
+void printWave(Wave_t *wave)
 {
-	int i = 0;
+	Wave_t *tempNode = wave;
 
-	while (TODO)
+	printf("-------\n");
+
+	while (tempNode->ship.class != Null)
 	{
-		printf("Test123\n");
+		printShip(tempNode->ship);
+		tempNode = tempNode->next;
 	}
 }
 

@@ -4,7 +4,6 @@
 #include "sleep.h"
 #include <unistd.h>
 #include <pthread.h>
-#include <stdbool.h>
 
 /**
  * Entry point.
@@ -15,19 +14,19 @@ int main(void)
 {
 	Ship_t playerShip = createShip(StratosX);
 	Wave_t waves[6];
-	int i, alarm1playing = true;
+	int i, alarm1playing = 1;
 	sound_effect_t alarm = {Alarm3, &alarm1playing};
 	pthread_t thread;
 
 	pthread_create(&thread, NULL, soundThread, &alarm);
 	sleep(3);
-	alarm1playing = false;
+	alarm1playing = 0;
 	// updateDisplay(32, 24); /* TODO: This needs to be on its own thread */
 
 	for (i = 0; i < 6; i++)
 		initWave(waves[i], i + 1);
 
-	printWave(waves[5]);
+	printWave(&waves[5]);
 
 	pthread_join(thread, NULL);
 

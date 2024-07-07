@@ -54,7 +54,7 @@ char *classToStr(enum ShipClass class);
 
 void printShip(Ship_t ship);
 
-void printWave(Wave_t wave);
+void printWave(Wave_t *wave);
 
 #endif /* SHIPS_H */
 
