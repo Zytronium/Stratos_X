@@ -48,7 +48,7 @@ Wave_t *add_node(Wave_t **head, Ship_t ship);
 
 Wave_t *tail_node(Wave_t *head);
 
-Ship_t createShip(enum ShipClass class);
+Ship_t newShip(enum ShipClass class);
 
 char *classToStr(enum ShipClass class);
 

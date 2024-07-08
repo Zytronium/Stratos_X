@@ -10,7 +10,7 @@
  *
  * @return The newly created ship.
  */
-Ship_t createShip(enum ShipClass class)
+Ship_t newShip(enum ShipClass class)
 {
 	switch (class)
 	{
@@ -95,13 +95,10 @@ void initWave(Wave_t *waveShips, int wave)
 			break;
 
 		case 6:
-			setWave(waveShips, createShip(CoreSec_Battleship),
-					createShip(Cruiser), createShip(Cruiser),
-					createShip(Cruiser), createShip(Destroyer),
-					createShip(Destroyer), NULL_SHIP);
-			printf("---\n");
-			printWave(waveShips);
-			printf("---\n");
+			setWave(waveShips, newShip(CoreSec_Battleship),
+					newShip(Cruiser), newShip(Cruiser),
+					newShip(Cruiser), newShip(Destroyer),
+					newShip(Destroyer), NULL_SHIP);
 			break;
 
 		default:
@@ -158,17 +155,16 @@ char *classToStr(enum ShipClass class)
 }
 
 /**
- * Initializes or overwrites an array, assumed to be a wave, of ships.
+ * Initializes or overwrites a Wave_t list of ships.
  * Exits the program on malloc failure.
  *
- * @param destWave The array of ships that we are setting.
+ * @param destWave Pointer to the Wave_t list of ships that we are setting.
  * @param ... Ships that belong in destWave.
  */
 void setWave(Wave_t *destWave, ...)
 {
 	int i = 0;
 	Wave_t *tempNode; /* new node to create */
-	Wave_t *head = destWave; /* first node of wave list */
 	va_list ships; /* all args after destWave, assumed to be of type Ship_t */
 	Ship_t ship = PLACEHOLDER_SHIP; /* Note:
  * Initialized here so that it can start the loop.
@@ -182,13 +178,6 @@ void setWave(Wave_t *destWave, ...)
 
 	while (ship.class != Null) /* iterates through all ships given */
 	{
-		/*
-		 * NOTE: The issue was NOT that it reallocates tempNode each time.
-		 * The solution was actually just to modify the prototype of every
-		 * function that modifies @destWave to take a pointer to the wave
-		 * instead of the wave itself. I have left all my debugging stuff
-		 * in here until the next commit.
-		 */
 		ship = va_arg(ships, Ship_t); /* sets ship to next ship in ships list*/
 		tempNode = malloc(sizeof(Wave_t)); /* allocates memory for new node */
 
@@ -198,24 +187,15 @@ void setWave(Wave_t *destWave, ...)
 		tempNode->ship = ship; /* sets new node ship to this ship */
 		tempNode->next = NULL; /* initializes next node ptr to NULL (it doesn't exist yet) */
 
-		if (head->ship.class != Null) /* if the wave list's first ship is not NULL_SHIP, ... */
+		if (destWave->ship.class != Null) /* if the wave list's first ship is not NULL_SHIP, ... */
 			tail_node(destWave)->next = tempNode; /* find and set tail node to the newly created node */
 		else /* or, if it is NULL_SHIP (meaning the list is empty), ... */
-			*head = *tempNode; /* set the head node to newly created node. */ /* TODO: should tempNode be freed after this? */
+			*destWave = *tempNode; /* set the head node to newly created node. */ /* TODO: should tempNode be freed after this? */
 
 		i++;
 	}
 
 	va_end(ships);
-
-	/*printShip(destWave->ship);
-	printShip(destWave->next->ship);
-	printShip(destWave->next->next->ship);
-	printShip(destWave->next->next->next->ship);
-	printShip(destWave->next->next->next->next->ship);
-	printShip(destWave->next->next->next->next->next->ship);
-	printShip(destWave->next->next->next->next->next->next->ship);
-	printf("------------------\n");*/
 }
 
 /**
@@ -223,12 +203,12 @@ void setWave(Wave_t *destWave, ...)
  * Alternative method that I may not use.
  * May delete later.
  *
- * @param head the pointer to the head of the Wave_t list
+ * @param wave the pointer to the head of the Wave_t list
  * @param ship the ship to add to the list
  *
  * @return pointer to the new node, or NULL on failure.
  */
-Wave_t *add_node(Wave_t **head, Ship_t ship)
+Wave_t *add_ship_to_wave(Wave_t **wave, Ship_t ship)
 {
 	Wave_t *tempNode = malloc(sizeof(Wave_t));
 
@@ -238,20 +218,20 @@ Wave_t *add_node(Wave_t **head, Ship_t ship)
 	tempNode->ship = ship;
 	tempNode->next = NULL;
 
-	if (*head != NULL)
-		tail_node(*head)->next = tempNode;
+	if (*wave != NULL)
+		tail_node(*wave)->next = tempNode;
 	else
-		*head = tempNode;
+		*wave = tempNode;
 
 	return (tempNode);
 }
 
 /**
- * Finds the last (non-NULL) node of a list
+ * Finds the last (non-NULL) node of a Wave_t list
  *
  * @param head: the head or starting node of the search
  *
- * @return pointer to the last node of a list
+ * @return pointer to the last node of a Wave_t list
  */
 Wave_t *tail_node(Wave_t *head)
 {
@@ -307,7 +287,10 @@ void printShip(Ship_t ship)
 /**
  * Prints the properties of every ship in a given wave.
  *
- * @param wave The wave to print the properties of.
+ * @param wave Pointer to the wave to print the properties of.
+ *
+ * @return Pointer to the last node who's class is not Null,
+ * or NULL if it encounters a NULl wave.
  */
 Wave_t *printWave(Wave_t *wave)
 {
@@ -317,11 +300,7 @@ Wave_t *printWave(Wave_t *wave)
 	printShip(wave->ship);
 
 	if (wave->next != NULL && wave->next->ship.class == Null)
-	{
-		/*printShip(wave->next->ship);*/
-		printf("-------\n");
 		return (wave);
-	}
 
 	return (printWave(wave->next));
 }

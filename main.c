@@ -12,7 +12,7 @@
  */
 int main(void)
 {
-	Ship_t playerShip = createShip(StratosX);
+	Ship_t playerShip = newShip(StratosX);
 	Wave_t waves[6];
 	int i, alarm1playing = 1;
 	sound_effect_t alarm = {Alarm3, &alarm1playing};
@@ -23,15 +23,16 @@ int main(void)
 	alarm1playing = 0;
 	// updateDisplay(32, 24); /* TODO: This needs to be on its own thread */
 
-	/*printShip(waves[5].ship);*/
-
 	for (i = 0; i < 6; i++)
 		initWave(&waves[i], i + 1);
 
-	printf("first ship:\n");
+	printf("Player's ship:\n\n");
+	printShip(playerShip);
+
+	printf("First ship: in wave 6:\n\n");
 	printShip(waves[5].ship);
-	printf("-------------------------------\n");
-	printf("all ships, again:\n");
+
+	printf("Final boss wave ships:\n\n");
 	printWave(&waves[5]);
 
 	pthread_join(thread, NULL);
