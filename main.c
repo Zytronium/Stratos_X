@@ -1,6 +1,7 @@
 #include "stratos.h"
 #include "ships.h"
 #include "sounds.h"
+#include <stdlib.h>
 #include "sleep.h"
 #include <unistd.h>
 #include <pthread.h>
@@ -14,6 +15,7 @@ int main(void)
 {
 	Ship_t playerShip = newShip(StratosX);
 	Wave_t waves[6];
+	Wave_t allShips;
 	int i, alarm1playing = 1;
 	sound_effect_t alarm = {Alarm3, &alarm1playing};
 	pthread_t thread;
@@ -26,14 +28,20 @@ int main(void)
 	for (i = 0; i < 6; i++)
 		initWave(&waves[i], i + 1);
 
-	printf("Player's ship:\n\n");
+	/*printf("Player's ship:\n\n");
 	printShip(playerShip);
 
 	printf("First ship: in wave 6:\n\n");
 	printShip(waves[5].ship);
 
 	printf("Final boss wave ships:\n\n");
-	printWave(&waves[5]);
+	printWave(&waves[5]);*/
+
+	setWave(&allShips, newShip(StratosX), newShip(Interceptor),
+			newShip(Fighter), newShip(Corvette), newShip(Frigate),
+			newShip(Destroyer), newShip(Cruiser), newShip(CoreSec_Battleship), NULL_SHIP);
+
+	printWave(&allShips);
 
 	pthread_join(thread, NULL);
 
