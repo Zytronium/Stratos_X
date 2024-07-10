@@ -25,3 +25,6 @@
 /test_run.exe
 /cmake-build-debug/compile_commands.json
 /.idea/
+/cmake-build-debug/CMakeCache.txt
+/cmake-build-debug/CMakeFiles/
+/cmake-build-debug/.cmake/
