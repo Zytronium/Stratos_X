@@ -17,12 +17,13 @@ int main(void)
 	Wave_t waves[6];
 	Wave_t allShips;
 	int i, alarm1playing = 1;
-	sound_effect_t alarm = {Alarm3, &alarm1playing};
+	/*sound_effect_t alarm = {Alarm3, &alarm1playing};
 	pthread_t thread;
 
 	pthread_create(&thread, NULL, soundThread, &alarm);
 	sleep(3);
-	alarm1playing = 0;
+	alarm1playing = 0;*/
+
 	// updateDisplay(32, 24); /* TODO: This needs to be on its own thread */
 
 	for (i = 0; i < 6; i++)
@@ -36,14 +37,14 @@ int main(void)
 
 	printf("Final boss wave ships:\n\n");
 	printWave(&waves[5]);*/
+	printWave(&waves[5]);
 
 	setWave(&allShips, newShip(StratosX), newShip(Interceptor),
 			newShip(Fighter), newShip(Corvette), newShip(Frigate),
 			newShip(Destroyer), newShip(Cruiser), newShip(CoreSec_Battleship), NULL_SHIP);
 
 	printWave(&allShips);
-
-	pthread_join(thread, NULL);
+	/*pthread_join(thread, NULL);*/
 
 
 	sleep(4);
