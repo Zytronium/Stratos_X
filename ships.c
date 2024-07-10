@@ -15,28 +15,28 @@ Ship_t newShip(enum ShipClass class)
 	switch (class)
 	{
 		case StratosX: /* Player's Ship. All other types (except Player Station and Null) are enemies */
-			return (Ship_t) {StratosX, 800, 750, 800, 750, 160, 45};
+			return (Ship_t) {StratosX, 850, 800, 850, 800, 240, 45};
 
 		case Interceptor:
-			return (Ship_t) {Interceptor, 75, 125, 75, 125, 170, 15};
+			return (Ship_t) {Interceptor, 75, 125, 75, 125, 250, 15};
 
 		case Fighter:
-			return (Ship_t) {Fighter, 170, 50, 170, 50, 135, 20};
+			return (Ship_t) {Fighter, 170, 50, 170, 50, 215, 20};
 
 		case Corvette:
-			return (Ship_t) {Corvette, 300, 350, 300, 350, 115, 35};
+			return (Ship_t) {Corvette, 300, 350, 300, 350, 170, 35};
 
 		case Frigate:
-			return (Ship_t) {Frigate, 450, 400, 450, 400, 90, 45};
+			return (Ship_t) {Frigate, 450, 400, 450, 400, 135, 45};
 
 		case Destroyer:
-			return (Ship_t) {Destroyer, 950, 725, 950, 725, 80, 60};
+			return (Ship_t) {Destroyer, 950, 725, 950, 725, 105, 60};
 
 		case Cruiser:
-			return (Ship_t) {Cruiser, 1450, 1100, 1450, 1100, 45, 80};
+			return (Ship_t) {Cruiser, 1450, 1100, 1450, 1100, 60, 80};
 
 		case CoreSec_Battleship:
-			return (Ship_t) {CoreSec_Battleship, 12000, 5000, 12000, 5000, 10, 110};
+			return (Ship_t) {CoreSec_Battleship, 12000, 5000, 12000, 5000, 15, 110};
 
 		case PlayerStation: /* Non-Null Placeholder */
 			return (PLACEHOLDER_SHIP);
