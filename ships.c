@@ -15,28 +15,28 @@ Ship_t newShip(enum ShipClass class)
 	switch (class)
 	{
 		case StratosX: /* Player's Ship. All other types (except Player Station and Null) are enemies */
-			return (Ship_t) {StratosX, 800, 750, 800, 750, 160, 45};
+			return (Ship_t) {.class = StratosX, .maxHull = 800, .maxShields = 750, .hullHp = 800, .shieldsHp = 750, .speed = 160, .dps = 45};
 
 		case Interceptor:
-			return (Ship_t) {Interceptor, 75, 125, 75, 125, 170, 15};
+			return (Ship_t) {.class = Interceptor, .maxHull = 75, .maxShields = 125, .hullHp = 75, .shieldsHp = 125, .speed = 170, .dps = 15};
 
 		case Fighter:
-			return (Ship_t) {Fighter, 170, 50, 170, 50, 135, 20};
+			return (Ship_t) {.class = Fighter, .maxHull = 170, .maxShields = 50, .hullHp = 170, .shieldsHp = 50, .speed = 135, .dps = 20};
 
 		case Corvette:
-			return (Ship_t) {Corvette, 300, 350, 300, 350, 115, 35};
+			return (Ship_t) {.class = Corvette, .maxHull = 300, .maxShields = 350, .hullHp = 300, .shieldsHp = 350, .speed = 115, .dps = 35};
 
 		case Frigate:
-			return (Ship_t) {Frigate, 450, 400, 450, 400, 90, 45};
+			return (Ship_t) {.class = Frigate, .maxHull = 450, .maxShields = 400, .hullHp = 450, .shieldsHp = 400, .speed = 90, .dps = 45};
 
 		case Destroyer:
-			return (Ship_t) {Destroyer, 950, 725, 950, 725, 80, 60};
+			return (Ship_t) {.class = Destroyer, .maxHull = 950, .maxShields = 725, .hullHp = 950, .shieldsHp = 725, .speed = 80, .dps = 60};
 
 		case Cruiser:
-			return (Ship_t) {Cruiser, 1450, 1100, 1450, 1100, 45, 80};
+			return (Ship_t) {.class = Cruiser, .maxHull = 1450, .maxShields = 1100, .hullHp = 1450, .shieldsHp = 1100, .speed = 45, .dps = 80};
 
 		case CoreSec_Battleship:
-			return (Ship_t) {CoreSec_Battleship, 12000, 5000, 12000, 5000, 10, 110};
+			return (Ship_t) {.class = CoreSec_Battleship, .maxHull = 12000, .maxShields = 5000, .hullHp = 12000, .shieldsHp = 5000, .speed = 10, .dps = 110};
 
 		case PlayerStation: /* Non-Null Placeholder */
 			return (PLACEHOLDER_SHIP);
