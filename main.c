@@ -41,7 +41,7 @@ int main(void)
 
 	setWave(&allShips, newShip(StratosX), newShip(Interceptor),
 			newShip(Fighter), newShip(Corvette), newShip(Frigate),
-			newShip(Destroyer), newShip(Cruiser), newShip(CoreSec_Battleship), NULL_SHIP);
+			newShip(Destroyer), newShip(Cruiser), newShip(CoreSec_Battleship));
 
 	printWave(&allShips);
 	/*pthread_join(thread, NULL);*/

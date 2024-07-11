@@ -13,4 +13,5 @@ add_executable(Stratos_X
         ships.h
         ships.c
         sounds.h
-        sound_effects.c)
+        sound_effects.c
+        extend_def.h)

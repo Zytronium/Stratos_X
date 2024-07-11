@@ -1,3 +1,4 @@
+#include "extend_def.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <malloc.h>
@@ -98,7 +99,7 @@ void initWave(Wave_t *waveShips, int wave)
 			setWave(waveShips, newShip(CoreSec_Battleship),
 					newShip(Cruiser), newShip(Cruiser),
 					newShip(Cruiser), newShip(Destroyer),
-					newShip(Destroyer), NULL_SHIP);
+					newShip(Destroyer));
 			break;
 
 		default:
@@ -110,7 +111,7 @@ void initWave(Wave_t *waveShips, int wave)
 /**
  * Converts the name of a ship's class to a string.
  *
- * @param class The ship class convert to a string.
+ * @param class The ship class to convert to a string.
  *
  * @return The name of a ship's class as a string.
  */
@@ -119,6 +120,7 @@ char *classToStr(enum ShipClass class)
 	switch (class)
 	{
 		case Interceptor:
+			printf("TEST%c", '\n');
 			return ("Interceptor");
 
 		case Fighter:
@@ -176,21 +178,24 @@ void setWave(Wave_t *destWave, ...)
 
 	va_start(ships, destWave);
 
-	while (ship.class != Null) /* iterates through all ships given */
+	loop													/* iterates through all ships given */
 	{
-		ship = va_arg(ships, Ship_t); /* sets ship to next ship in ships list*/
-		tempNode = malloc(sizeof(Wave_t)); /* allocates memory for new node */
+		ship = va_arg(ships, Ship_t); 						/* sets ship to next ship in ships list*/
 
-		if (tempNode == NULL) /* if mem alloc fails,... */
-			exit(EXIT_FAILURE); /* ... then exits program. */
+		breakif (ship.class == Null);						/* stop the loop if the ship is of class "Null" */
 
-		tempNode->ship = ship; /* sets new node ship to this ship */
-		tempNode->next = NULL; /* initializes next node ptr to NULL (it doesn't exist yet) */
+		tempNode = malloc(sizeof(Wave_t)); 			/* allocates memory for new node */
+		if (tempNode == NULL) 								/* if mem alloc fails,... */
+			exit(EXIT_FAILURE); 						/* ... then exits program. */
 
-		if (destWave->ship.class != Null) /* if the wave list's first ship is not NULL_SHIP, ... */
-			tail_node(destWave)->next = tempNode; /* find and set tail node to the newly created node */
-		else /* or, if it is NULL_SHIP (meaning the list is empty), ... */
-			*destWave = *tempNode; /* set the head node to newly created node. */ /* TODO: should tempNode be freed after this? */
+		tempNode->ship = ship; 								/* sets new node ship to this ship */
+		tempNode->next = NULL; 								/* initializes next node ptr to NULL (it doesn't exist yet) */
+		/* todo: finish converting null terminator from an entire ship type to just a null "next" ptr */
+		if (destWave->ship.class != Null) 					/* if the wave list's first ship is not NULL_SHIP, ... */
+			tail_node(destWave)->next = tempNode; 	/* find and set tail node to the newly created node */
+		else 												/* or, if it is NULL_SHIP (meaning the list is empty), ... */
+			*destWave = *tempNode; 							/* set the head node to newly created node. */
+		/* TODO: should tempNode be freed after this? */
 
 		i++;
 	}
