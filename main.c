@@ -13,9 +13,19 @@
  */
 int main(void)
 {
-	Ship_t playerShip = newShip(StratosX);
+	Ship_t playerShip = STRATOS_X_DEFAULT;
+	Ship_t postBoss = {
+			.class = Frigate,
+			.maxHull = 5800,
+			.maxShields = 3500,
+			.hullHp = 5800,
+			.shieldsHp = 3500,
+			.speed = 200,
+			.dps = 150
+
+	};
 	Wave_t waves[6];
-	Wave_t allShips;
+	Wave_t allShips = BLANK_WAVE;
 	int i, alarm1playing = 1;
 	/*sound_effect_t alarm = {Alarm3, &alarm1playing};
 	pthread_t thread;
@@ -37,11 +47,11 @@ int main(void)
 
 	printf("Final boss wave ships:\n\n");
 	printWave(&waves[5]);*/
-	printWave(&waves[5]);
 
-	setWave(&allShips, newShip(StratosX), newShip(Interceptor),
-			newShip(Fighter), newShip(Corvette), newShip(Frigate),
-			newShip(Destroyer), newShip(Cruiser), newShip(CoreSec_Battleship));
+	setWave(&allShips, STRATOS_X_DEFAULT, INTERCEPTOR_SHIP_DEFAULT,
+			FIGHTER_SHIP_DEFAULT, CORVETTE_SHIP_DEFAULT, FRIGATE_SHIP_DEFAULT,
+			DESTROYER_SHIP_DEFAULT, CRUISER_SHIP_DEFAULT, BATTLESHIP_DEFAULT,
+			NULL_SHIP);
 
 	printWave(&allShips);
 	/*pthread_join(thread, NULL);*/

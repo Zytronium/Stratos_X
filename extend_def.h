@@ -1,21 +1,18 @@
-//
-// Created by Owner on 7/10/2024.
-//
+/*
+ * Created by Owner on 7/10/2024.
+ */
 
 #ifndef EXTEND_DEF_H
 	#define EXTEND_DEF_H
 
 	/*
 	* infinite loop replacement for while (true). Loop must
-	* be broken with a break call inside the loop, i.e. if (condition) break;
+	* be broken with a break call inside the loop, i.e. if (i == 5) break;
 	*/
 	#ifndef loop
-		#define loop while (1)
+		#define loop() while (1)
 
-		/*
-		 * break the loop if condition is true
-		 */
-
+		/* break the loop if condition is true */
 		#define breakif(condition) if (condition) break
 
 	#endif /* loop */

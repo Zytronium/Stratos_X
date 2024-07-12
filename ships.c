@@ -6,6 +6,7 @@
 
 /**
  * Creates a ship with the default starting properties for the given class.
+ * Do I even need this anymore? I've replaced all this with macros.
  *
  * @param class The class of ship to create. This determines the default stats.
  *
@@ -16,28 +17,28 @@ Ship_t newShip(enum ShipClass class)
 	switch (class)
 	{
 		case StratosX: /* Player's Ship. All other types (except Player Station and Null) are enemies */
-			return (Ship_t) {.class = StratosX, .maxHull = 850, .maxShields = 800, .hullHp = 850, .shieldsHp = 800, .speed = 240, .dps = 45};
+			return (STRATOS_X_DEFAULT);
 
 		case Interceptor:
-			return (Ship_t) {.class = Interceptor, .maxHull = 75, .maxShields = 125, .hullHp = 75, .shieldsHp = 125, .speed = 250, .dps = 15};
+			return (INTERCEPTOR_SHIP_DEFAULT);
 
 		case Fighter:
-			return (Ship_t) {.class = Fighter, .maxHull = 170, .maxShields = 50, .hullHp = 170, .shieldsHp = 50, .speed = 215, .dps = 20};
+			return (FIGHTER_SHIP_DEFAULT);
 
 		case Corvette:
-			return (Ship_t) {.class = Corvette, .maxHull = 300, .maxShields = 350, .hullHp = 300, .shieldsHp = 350, .speed = 170, .dps = 35};
+			return (CORVETTE_SHIP_DEFAULT);
 
 		case Frigate:
-			return (Ship_t) {.class = Frigate, .maxHull = 450, .maxShields = 400, .hullHp = 450, .shieldsHp = 400, .speed = 135, .dps = 45};
+			return (FRIGATE_SHIP_DEFAULT);
 
 		case Destroyer:
-			return (Ship_t) {.class = Destroyer, .maxHull = 950, .maxShields = 725, .hullHp = 950, .shieldsHp = 725, .speed = 105, .dps = 60};
+			return (DESTROYER_SHIP_DEFAULT);
 
 		case Cruiser:
-			return (Ship_t) {.class = Cruiser, .maxHull = 1450, .maxShields = 1100, .hullHp = 1450, .shieldsHp = 1100, .speed = 60, .dps = 80};
+			return (CRUISER_SHIP_DEFAULT);
 
 		case CoreSec_Battleship:
-			return (Ship_t) {.class = CoreSec_Battleship, .maxHull = 12000, .maxShields = 5000, .hullHp = 12000, .shieldsHp = 5000, .speed = 15, .dps = 110};
+			return (BATTLESHIP_DEFAULT);
 
 		case PlayerStation: /* Non-Null Placeholder */
 			return (PLACEHOLDER_SHIP);
@@ -96,10 +97,10 @@ void initWave(Wave_t *waveShips, int wave)
 			break;
 
 		case 6:
-			setWave(waveShips, newShip(CoreSec_Battleship),
-					newShip(Cruiser), newShip(Cruiser),
-					newShip(Cruiser), newShip(Destroyer),
-					newShip(Destroyer));
+			setWave(waveShips, BATTLESHIP_DEFAULT,
+					CRUISER_SHIP_DEFAULT, CRUISER_SHIP_DEFAULT,
+					CRUISER_SHIP_DEFAULT, DESTROYER_SHIP_DEFAULT,
+					DESTROYER_SHIP_DEFAULT, NULL_SHIP);
 			break;
 
 		default:
@@ -120,7 +121,6 @@ char *classToStr(enum ShipClass class)
 	switch (class)
 	{
 		case Interceptor:
-			printf("TEST%c", '\n');
 			return ("Interceptor");
 
 		case Fighter:
@@ -165,39 +165,45 @@ char *classToStr(enum ShipClass class)
  */
 void setWave(Wave_t *destWave, ...)
 {
-	int i = 0;
 	Wave_t *tempNode; /* new node to create */
 	va_list ships; /* all args after destWave, assumed to be of type Ship_t */
-	Ship_t ship = PLACEHOLDER_SHIP; /* Note:
- * Initialized here so that it can start the loop.
- * An uninitialized var would crash the program.
- * Not NULL_SHIP because loop would never run.
- * Not va_arg because 1: va_start hasn't been called yet,
- * and 2: the first arg would be skipped.
- */
+	Ship_t ship = PLACEHOLDER_SHIP; /* New ship at each iteration in the loop */
+	/* Note:
+ 	 * Initialized here so that it can start the loop.
+ 	 * An uninitialized var would crash the program.
+ 	 * Not NULL_SHIP because loop would never run.
+ 	 * Not va_arg because 1: va_start hasn't been called yet,
+ 	 * and 2: the first arg would be skipped.
+ 	 */
 
 	va_start(ships, destWave);
 
-	loop													/* iterates through all ships given */
+	loop()													/* iterates through all ships given, adding them to the end of the list one at a time */
 	{
-		ship = va_arg(ships, Ship_t); 						/* sets ship to next ship in ships list*/
+		ship = va_arg(ships, Ship_t);						/* sets ship to next ship in ships list*/
 
-		breakif (ship.class == Null);						/* stop the loop if the ship is of class "Null" */
+		breakif(ship.class == Null);						/* stop the loop at the end of the va_list of ship */
 
-		tempNode = malloc(sizeof(Wave_t)); 			/* allocates memory for new node */
-		if (tempNode == NULL) 								/* if mem alloc fails,... */
-			exit(EXIT_FAILURE); 						/* ... then exits program. */
+		tempNode = malloc(sizeof(Wave_t));					/* allocates memory for new node */
+		if (tempNode == NULL)								/* if mem alloc fails,... */
+			 exit(EXIT_FAILURE);							/* ... then exits program. */
 
 		tempNode->ship = ship; 								/* sets new node ship to this ship */
-		tempNode->next = NULL; 								/* initializes next node ptr to NULL (it doesn't exist yet) */
-		/* todo: finish converting null terminator from an entire ship type to just a null "next" ptr */
-		if (destWave->ship.class != Null) 					/* if the wave list's first ship is not NULL_SHIP, ... */
-			tail_node(destWave)->next = tempNode; 	/* find and set tail node to the newly created node */
-		else 												/* or, if it is NULL_SHIP (meaning the list is empty), ... */
-			*destWave = *tempNode; 							/* set the head node to newly created node. */
-		/* TODO: should tempNode be freed after this? */
+		tempNode->next = NULL; 								/* initializes next node ptr to NULL (next one doesn't exist yet), making this the tail node, for now. */
 
-		i++;
+		if (destWave != NULL && destWave->ship.class != Null) /* if the wave list's first ship is not NULL_SHIP, ... */
+			tail_node(destWave)->next = tempNode;			/* find and set tail node to the newly created node */
+		else if (destWave == NULL) 							/* if the head is NULL ... */
+		{
+			destWave = malloc(sizeof(Wave_t));              /* allocate memory for head if it is NULL */
+			if (destWave == NULL)							/* check if malloc failed */
+				exit(EXIT_FAILURE);							/* exit program if malloc failed */
+
+			*destWave = *tempNode;							/* clone the temp node into the head */
+			free(tempNode);									/* free tempNode because it's no longer in use */
+		}
+		else 												/* or, if it is NULL_SHIP (meaning the list is empty), but not NULL (meaning we don't need to create/malloc it) ... */
+			*destWave = *tempNode; 							/* set the head node to newly created node. */
 	}
 
 	va_end(ships);
@@ -240,13 +246,15 @@ Wave_t *add_ship_to_wave(Wave_t **wave, Ship_t ship)
  */
 Wave_t *tail_node(Wave_t *head)
 {
-	if (head == NULL)
-		return (NULL);
+	if (head != NULL)
+	{
+		while (head->next != NULL)
+			head = head->next;
 
-	if (head->next == NULL || head->next->ship.class == Null)
 		return (head);
+	}
 
-	return (tail_node(head->next));
+	return (NULL);
 }
 
 /**
